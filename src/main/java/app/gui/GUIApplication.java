@@ -8,7 +8,7 @@ import javafx.stage.Stage;
 public class GUIApplication extends javafx.application.Application {
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("../../resources/Form.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("../../../resources/Form.fxml"));
 
         Scene scene = new Scene(root);
 

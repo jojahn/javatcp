@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 
@@ -44,6 +45,8 @@ public class Controller implements Initializable {
     private Text statusFormText;
     @FXML
     private Text statusBarText;
+    @FXML
+    private Button statusIcon;
 
 
     @Override
@@ -71,6 +74,8 @@ public class Controller implements Initializable {
             connector.connect();
             this.isConnected = true;
             eventBus.publish(new StatusEvent("Connecting ...", Color.STEELBLUE, 0));
+            statusIcon.getStyleClass().clear();
+            statusIcon.getStyleClass().add("positive-status-icon");
         } catch (UnknownHostException ex) {
             ex.printStackTrace();
             eventBus.publish(new StatusEvent("Connection Failed", Color.RED, 0));
@@ -85,6 +90,8 @@ public class Controller implements Initializable {
             connector.listen();
             this.isListening = true;
             eventBus.publish(new StatusEvent("Starting Listening ... ", Color.STEELBLUE, 0));
+            statusIcon.getStyleClass().clear();
+            statusIcon.getStyleClass().add("positive-status-icon");
         } catch (UnknownHostException ex) {
             ex.printStackTrace();
             eventBus.publish(new StatusEvent("Listening Failed", Color.RED, 0));
@@ -101,11 +108,15 @@ public class Controller implements Initializable {
             } else if(isListening) {
                 connector.stopListen();
             }
+            eventBus.publish(new StatusEvent("Disconnected", Color.GRAY, 0));
+            statusIcon.getStyleClass().clear();
+            statusIcon.getStyleClass().add("neutral-status-icon");
         } catch (Exception ex) {
             ex.printStackTrace();
+            statusIcon.getStyleClass().clear();
+            statusIcon.getStyleClass().add("negative-status-icon");
             eventBus.publish(new StatusEvent("Disconnect failed", Color.ORANGERED, 0));
         }
-        eventBus.publish(new StatusEvent("Disconnected", Color.GRAY, 0));
     }
 
     public void onMessageEmit(ActionEvent e) {
@@ -114,7 +125,7 @@ public class Controller implements Initializable {
         if(isConnected) {
             connector.send(message);
         } else if(isListening) {
-            connector.sendServer(message + "@RECV");
+            connector.sendServer(message);
         }
         eventBus.publish(new StatusEvent("Sending \"" + message + "\"", Color.STEELBLUE, 1));
     }

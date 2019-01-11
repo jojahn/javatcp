@@ -1,4 +1,4 @@
-#listenButton, #connectButton {
+#listenButton, #connectButton, #sendButton {
     -fx-background-color:
         #c3c4c4,
         linear-gradient(#d6d6d6 50%, white 100%),
@@ -23,20 +23,6 @@
     -fx-cursor: pointer;
 }
 
-.neutral-status-icon {
-    -fx-background-color:
-        #000000,
-        linear-gradient(rgb(200, 200, 200), rgb(100, 100, 100)),
-        linear-gradient(rgb(100, 100, 100), rgb(150, 150, 150)),
-        linear-gradient(rgb(150, 150, 150), rgb(200, 200, 200));
-    -fx-background-insets: 0,1,2,3;
-    -fx-background-radius: 3,2,2,2;
-    -fx-padding: 5 5 5 5;
-    -fx-text-fill: white;
-    -fx-font-size: 12px;
-    -fx-cursor: pointer;
-}
-
 .negative-fancy-btn {
     -fx-background-color:
         #000000,
@@ -49,3 +35,40 @@
     -fx-text-fill: white;
     -fx-font-size: 12px;
 }
+
+.neutral-status-icon {
+    -fx-background-color:
+        #000000,
+        linear-gradient(rgb(200, 200, 200), rgb(100, 100, 100)),
+        linear-gradient(rgb(100, 100, 100), rgb(150, 150, 150)),
+        linear-gradient(rgb(150, 150, 150), rgb(200, 200, 200));
+    -fx-background-insets: 0,1,2,3;
+    -fx-background-radius: 20;
+    -fx-padding: 10;
+    -fx-cursor: pointer;
+}
+
+.negative-status-icon {
+    -fx-background-color:
+        #000000,
+        linear-gradient(rgb(180, 150, 50), rgb(180, 100, 50)),
+        linear-gradient(rgb(100, 10, 50), rgb(200, 50, 50)),
+        linear-gradient(rgb(200, 50, 50), rgb(180, 150, 50));
+    -fx-background-insets: 0,1,2,3;
+    -fx-background-radius: 20;
+    -fx-padding: 10;
+    -fx-cursor: pointer;
+}
+
+.positive-status-icon {
+    -fx-background-color:
+        #000000,
+        linear-gradient(rgb(50, 180, 150), rgb(50, 180, 100)),
+        linear-gradient(rgb(50, 100, 10), rgb(50, 200, 50)),
+        linear-gradient(rgb(50, 200, 50), rgb(150, 180, 50));
+    -fx-background-insets: 0,1,2,3;
+    -fx-background-radius: 20;
+    -fx-padding: 10;
+    -fx-cursor: pointer;
+}
+
