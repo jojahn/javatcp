@@ -3,6 +3,7 @@ package app.gui;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
+@Deprecated
 public class Model {
     private StringProperty messageInput = new SimpleStringProperty();
     private StringProperty messageOutput = new SimpleStringProperty();

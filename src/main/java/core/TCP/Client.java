@@ -32,7 +32,7 @@ public class Client implements Runnable {
     public Client(InetAddress ipAdress, int port) {
         this.port = port;
         this.ipAdress = ipAdress;
-        this.name = "Client_" + ipAdress + ":" + port;
+        this.name = "   Client_" + ipAdress + ":" + port;
     }
 
     public void connect() {
@@ -46,10 +46,10 @@ public class Client implements Runnable {
             writer = new Writer(inputData, clientSocket);
             writerThread = new Thread(writer);
 
-            eventBus.publish(new StatusEvent("Connected (" + ipAdress + ":" + port + ")", Color.GREEN, 0));
+            eventBus.publish(new StatusEvent(StatusEvent.SET_CONNECTED, "Connected to (" + ipAdress + ":" + port + ")"));
             System.out.println(name + " connected ");
         } catch (Exception e) {
-            eventBus.publish(new StatusEvent("Connection to " + ipAdress + ":" + port + " failed", Color.RED, 0));
+            eventBus.publish(new StatusEvent(StatusEvent.SET_DISCONNECTED, "Connection to (" + ipAdress + ":" + port + ") failed"));
             System.out.println(name + " connection failed ");
         }
     }
@@ -60,6 +60,7 @@ public class Client implements Runnable {
             writer.stop();
             clientSocket.close();
             System.out.println(name + " closed ");
+            eventBus.publish(new StatusEvent(StatusEvent.SET_DISCONNECTED, "Disconnected"));
         } catch (IOException e) {
             System.out.println(name + " could not fullClose ");
             e.printStackTrace();
@@ -79,7 +80,7 @@ public class Client implements Runnable {
     public void run() {
         connect();
 
-        while(!clientSocket.isConnected()) {
+        while(clientSocket == null || clientSocket != null && !clientSocket.isConnected()) {
 
         }
         readerThread.start();

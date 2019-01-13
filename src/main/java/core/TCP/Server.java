@@ -32,13 +32,13 @@ public class Server implements Runnable {
     public Server(InetAddress ipAdress, int port) {
         this.port = port;
         this.ipAdress = ipAdress;
-        this.name = "Server_" + ipAdress + ":" + port;
+        this.name = "   Server_" + ipAdress + ":" + port;
     }
 
     public void connect() {
         try {
             this.serverSocket = new ServerSocket(port, 1, this.ipAdress);
-            eventBus.publish(new StatusEvent("Listening (" + ipAdress + ":" + port +")", Color.STEELBLUE, 0));
+            eventBus.publish(new StatusEvent(StatusEvent.IS_LISTENING, "Listening on (" + ipAdress + ":" + port +")"));
 
             this.clientSocket = waitForClient(serverSocket);
 
@@ -48,22 +48,29 @@ public class Server implements Runnable {
             writer = new Writer(inputData, clientSocket);
             writerThread = new Thread(writer);
 
-            eventBus.publish(new StatusEvent("Client Connected", Color.GREEN, 0));
+            eventBus.publish(new StatusEvent(StatusEvent.SET_CONNECTED, "Connection from (" + clientSocket.getInetAddress() + ":" + clientSocket.getPort() + ")"));
             System.out.println(name + " connected ");
         } catch (Exception e) {
-            eventBus.publish(new StatusEvent("Listening Failed (" + ipAdress + ":" + port +")", Color.RED, 0));
+            eventBus.publish(new StatusEvent(StatusEvent.SET_DISCONNECTED, "Listening failed on (" + ipAdress + ":" + port +")"));
             System.out.println(name + " connection failed ");
         }
     }
 
     public void close() {
         try {
-            reader.stop();
-            writer.stop();
-            clientSocket.close();
+            if(reader != null) {
+                reader.stop();
+            }
+            if(writer != null) {
+                writer.stop();
+            }
+            if(clientSocket != null) {
+                clientSocket.close();
+            }
+            eventBus.publish(new StatusEvent(StatusEvent.SET_DISCONNECTED, "Disconnected"));
             System.out.println(name + " closed ");
         } catch (IOException e) {
-            System.out.println(name + " could not fullClose ");
+            System.out.println(name + " could not close ");
             e.printStackTrace();
         }
     }

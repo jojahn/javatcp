@@ -1,0 +1,103 @@
+/* dark: #242729
+   light: #6a737c
+   darker: #141415*/
+/*Button {
+    -fx-background-color: #6a737c;
+    -fx-background-radius: 2;
+    -fx-background-insets: 0,1,1;
+    -fx-text-fill: white;
+    -fx-cursor: hand;
+}
+
+Label, Text {
+    -fx-text-fill: #6a737c;
+}
+
+TextField {
+    -fx-text-fill: #242729;
+    -fx-background-color: #6a737c;
+    -fx-background-radius: 1;
+}
+
+HBox, VBox {
+    -fx-background-color: #242729;
+}*/
+
+#bottomControls {
+    -fx-background-color: rgb(200,200,200);
+}
+
+/*.positive-fancy-btn, Button {
+    -fx-background-color:
+        #000000,
+        linear-gradient(rgb(60, 200, 200), rgb(10, 100, 150)),
+        linear-gradient(rgb(10, 100, 150), rgb(60, 200, 150)),
+        linear-gradient(rgb(60, 200, 100), rgb(60, 150, 200));
+    -fx-background-insets: 0,1,2,3;
+    -fx-background-radius: 3,2,2,2;
+    -fx-padding: 5 5 5 5;
+    -fx-text-fill: white;
+    -fx-font-size: 12px;
+}
+
+.negative-fancy-btn, #stopButton {
+    -fx-background-color:
+        #000000,
+        linear-gradient(yellow, orangered),
+        linear-gradient(red, orangered),
+        linear-gradient(orange, red);
+    -fx-background-insets: 0,1,2,3;
+    -fx-background-radius: 3,2,2,2;
+    -fx-padding: 5 5 5 5;
+    -fx-text-fill: white;
+    -fx-font-size: 12px;
+    -fx-cursor: hand;
+}*/
+
+Button {
+    -fx-background-color:
+        #c3c4c4,
+        linear-gradient(#d6d6d6 50%, white 100%),
+        radial-gradient(center 50% -40%, radius 200%, #e6e6e6 45%, rgba(230,230,230,0) 50%);
+    -fx-background-radius: 5;
+    -fx-background-insets: 0,1,1;
+    -fx-text-fill: black;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 3, 0.0 , 0 , 1 );
+    -fx-cursor: pointer;
+}
+
+.neutral-status-icon {
+    -fx-background-color:
+        #000000,
+        linear-gradient(rgb(200, 200, 200), rgb(100, 100, 100)),
+        linear-gradient(rgb(100, 100, 100), rgb(150, 150, 150)),
+        linear-gradient(rgb(150, 150, 150), rgb(200, 200, 200));
+    -fx-background-insets: 0,1,2,3;
+    -fx-background-radius: 20;
+    -fx-padding: 10;
+    -fx-cursor: pointer;
+}
+
+.negative-status-icon {
+    -fx-background-color:
+        #000000,
+        linear-gradient(rgb(180, 150, 50), rgb(180, 100, 50)),
+        linear-gradient(rgb(100, 10, 50), rgb(200, 50, 50)),
+        linear-gradient(rgb(200, 50, 50), rgb(180, 150, 50));
+    -fx-background-insets: 0,1,2,3;
+    -fx-background-radius: 20;
+    -fx-padding: 10;
+    -fx-cursor: pointer;
+}
+
+.positive-status-icon {
+    -fx-background-color:
+        #000000,
+        linear-gradient(rgb(50, 180, 150), rgb(50, 180, 100)),
+        linear-gradient(rgb(50, 100, 10), rgb(50, 200, 50)),
+        linear-gradient(rgb(50, 200, 50), rgb(150, 180, 50));
+    -fx-background-insets: 0,1,2,3;
+    -fx-background-radius: 20;
+    -fx-padding: 10;
+    -fx-cursor: pointer;
+}

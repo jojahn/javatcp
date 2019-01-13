@@ -16,6 +16,7 @@ import java.net.URL;
 import java.net.UnknownHostException;
 import java.util.ResourceBundle;
 
+@Deprecated
 public class Controller implements Initializable {
 
     Model model = new Model();
@@ -61,6 +62,10 @@ public class Controller implements Initializable {
         portTextField.textProperty().bindBidirectional(model.portProperty());
         inetAddressTextField.textProperty().bindBidirectional(model.inetAddressProperty());
 
+        messageInput.disableProperty().set(true);
+        messageOutput.disableProperty().set(true);
+        sendButton.disableProperty().set(true);
+
         eventBus.subscribe(OutputEvent.class, this::onOutputEvent);
         eventBus.subscribe(StatusEvent.class, this::onStateChange);
         eventBus.subscribe(TCPEvent.class, this::onMessage);
@@ -76,6 +81,10 @@ public class Controller implements Initializable {
             eventBus.publish(new StatusEvent("Connecting ...", Color.STEELBLUE, 0));
             statusIcon.getStyleClass().clear();
             statusIcon.getStyleClass().add("positive-status-icon");
+
+            messageInput.disableProperty().set(false);
+            messageOutput.disableProperty().set(false);
+            sendButton.disableProperty().set(false);
         } catch (UnknownHostException ex) {
             ex.printStackTrace();
             eventBus.publish(new StatusEvent("Connection Failed", Color.RED, 0));
@@ -111,6 +120,10 @@ public class Controller implements Initializable {
             eventBus.publish(new StatusEvent("Disconnected", Color.GRAY, 0));
             statusIcon.getStyleClass().clear();
             statusIcon.getStyleClass().add("neutral-status-icon");
+
+            messageInput.disableProperty().set(true);
+            messageOutput.disableProperty().set(true);
+            sendButton.disableProperty().set(true);
         } catch (Exception ex) {
             ex.printStackTrace();
             statusIcon.getStyleClass().clear();
@@ -158,6 +171,12 @@ public class Controller implements Initializable {
             startButton.textProperty().set("Stop");
             startButton.getStyleClass().clear();
             startButton.getStyleClass().add("negative-fancy-btn");
+            if(isListening) {
+                messageInput.disableProperty().set(false);
+                messageOutput.disableProperty().set(false);
+                sendButton.disableProperty().set(false);
+            }
+
         }
     }
 
