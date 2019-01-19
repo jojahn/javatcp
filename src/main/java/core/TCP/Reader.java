@@ -60,6 +60,6 @@ class Reader implements Runnable {
     }
 
     private void publish(String message) {
-        eventBus.publish(new TCPEvent(message));
+        eventBus.publish(new TCPEvent(message, TCPEvent.RECIEVE_TAG));
     }
 }

@@ -13,7 +13,7 @@ public class TestMain {
 
 
             Connector c = new Connector(localhost, firstPort);
-            c.fullConnect();
+            c.testConnect();
 
             c.send("Hello, World!");
             String message = c.recieveServer();
@@ -25,7 +25,7 @@ public class TestMain {
             /*c.send("Test Message System");
             message = c.recieve();
             System.out.println("main: " + message);*/
-            c.fullClose();
+            c.testClose();
         } catch (Exception e) {
             e.printStackTrace();
         }

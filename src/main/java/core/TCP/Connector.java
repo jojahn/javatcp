@@ -25,55 +25,57 @@ public class Connector {
         serverThread = new Thread(server);
     }
 
-    public void fullConnect() {
-        clientThread.start();
-        serverThread.start();
-    }
-
-    public void fullReconnect(){
-        fullClose();
-        this.server = new Server(ipAdress, port);
-        this.client = new Client(ipAdress, port);
-
-        serverThread = new Thread(server);
-        clientThread = new Thread(client);
-        fullConnect();
-    }
-
-    public void fullClose() {
-        client.close();
-        server.close();
-    }
-
     public void connect() {
         clientThread.start();
     }
-
     public void listen() {
         serverThread.start();
     }
-
     public void close() {
         client.close();
     }
-
     public void stopListen(){
         server.close();
     }
 
     public void send(String message){
-        client.send(message, 5000);
+        client.send(message);
     }
-
+    public void send(String message, long timeout) { client.send(message, timeout); }
     public void sendServer(String message){
-        server.send(message, 5000);
+        server.send(message);
     }
-
+    public void sendServer(String message, long timeout){
+        server.send(message, timeout);
+    }
     public String recieve() {
         return client.get();
     }
-
+    public String recieve(long timeout) {
+        return client.get(timeout);
+    }
     public String recieveServer() {
         return server.get();
+    }
+    public String recieveServer(long timeout) {
+        return server.get(timeout);
+    }
+
+    public void testConnect() {
+        clientThread.start();
+        serverThread.start();
+    }
+    public void testReconnect(){
+        testClose();
+        this.server = new Server(ipAdress, port);
+        this.client = new Client(ipAdress, port);
+
+        serverThread = new Thread(server);
+        clientThread = new Thread(client);
+        testConnect();
+    }
+    public void testClose() {
+        client.close();
+        server.close();
     }
 }

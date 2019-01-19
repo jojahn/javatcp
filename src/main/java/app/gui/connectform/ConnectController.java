@@ -41,6 +41,8 @@ public class ConnectController implements Initializable {
 
         ipTextField.textProperty().bindBidirectional(model.ipProperty());
         portTextField.textProperty().bindBidirectional(model.portProperty());
+
+        eventBus.subscribe(TCPEvent.class, this::onMessageEmit);
     }
 
     public void onConnect(ActionEvent e){
@@ -112,6 +114,17 @@ public class ConnectController implements Initializable {
         } catch (Exception ex) {
             ex.printStackTrace();
             eventBus.publish(new StatusEvent("Disconnect failed", Color.ORANGERED, 0));
+        }
+    }
+
+    public void onMessageEmit(TCPEvent event) {
+        if(event.getTag() != TCPEvent.SEND_TAG) {
+            return;
+        }
+        if(isConnected) {
+            connector.send(event.getMessage());
+        } else if (isListening) {
+            connector.sendServer(event.getMessage());
         }
     }
 }

@@ -62,7 +62,7 @@ public class Client implements Runnable {
             System.out.println(name + " closed ");
             eventBus.publish(new StatusEvent(StatusEvent.SET_DISCONNECTED, "Disconnected"));
         } catch (IOException e) {
-            System.out.println(name + " could not fullClose ");
+            System.out.println(name + " could not testClose ");
             e.printStackTrace();
         }
     }

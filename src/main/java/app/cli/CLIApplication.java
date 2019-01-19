@@ -2,16 +2,22 @@ package app.cli;
 
 import core.TCP.Connector;
 
+import java.awt.*;
 import java.net.InetAddress;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Scanner;
 import java.util.concurrent.atomic.AtomicReference;
 
 public class CLIApplication implements Runnable {
+    private static String HALT_STRING = "HALT";
+
     private String name = "JAVA-TCP-CLI";
     private Boolean isServer = null;
     private boolean isRunning = false;
+    private Long timeout = 1000L;
+    private Scanner scanner;
 
     private InetAddress inetAddress = null;
     private Integer port = null;
@@ -40,6 +46,7 @@ public class CLIApplication implements Runnable {
     }
 
     public void start() {
+        scanner = new Scanner(System.in);
         buildInput();
         waitForInit();
         connector = new Connector(inetAddress, port);
@@ -66,8 +73,6 @@ public class CLIApplication implements Runnable {
         boolean inetValid = inetAddress != null;
         boolean portValid = port != null;
         boolean initValid = isServerValid && inetValid && portValid;
-
-        Scanner scanner = new Scanner(System.in);
 
         while(!initValid) {
             while (!isServerValid) {
@@ -138,13 +143,33 @@ public class CLIApplication implements Runnable {
 
     @Override
     public void run() {
+
         isRunning = true;
         while(isRunning) {
+
             System.out.println(name + "_" + inetAddress + ":" + port + " STEP ");
-            String message = (isServer) ? connector.recieveServer() : connector.recieve();
+            String message = (isServer) ? connector.recieveServer(timeout) : connector.recieve(timeout);
             System.out.println(name + " Received " + message);
             System.out.println(name + " Enter message (HALT for Stop)");
 
+            try {
+                message = scanner.next();
+            } catch (Exception e) {
+                e.printStackTrace();
+                System.exit(-1);
+            }
+
+            if(message.equals(HALT_STRING)) {
+                connector.close();
+                scanner.close();
+                System.exit(1);
+            }
+
+            if(isServer) {
+                connector.sendServer(message, timeout);
+            } else {
+                connector.send(message, timeout);
+            }
         }
     }
 }

@@ -9,17 +9,17 @@ import javafx.stage.Stage;
 public class GUIApplication extends Application {
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("../../../resources/Main.fxml"));
+        /*Parent root = FXMLLoader.load(getClass().getResource("../../../resources/Main.fxml"));
 
         Scene scene = new Scene(root);
         stage.setResizable(true);
-        stage.setMinWidth(400);
-        stage.setMinHeight(300);
-        stage.setHeight(400);
-        stage.setWidth(800);
+        stage.setMinWidth(500);
+        stage.setMinHeight(400);
+        stage.setHeight(450);
+        stage.setWidth(600);
 
         stage.setScene(scene);
-        stage.show();
+        stage.show();*/
     }
 
 }

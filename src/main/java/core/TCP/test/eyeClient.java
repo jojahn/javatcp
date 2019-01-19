@@ -16,7 +16,7 @@ public class eyeClient
             System.out.println("    executing ");
             if(clientSocket == null){
                 System.out.println(" /// no client");
-                fullConnect();
+                testConnect();
             }
 
             if(clientSocket != null && inputData.size() > 0) {

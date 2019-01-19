@@ -11,11 +11,12 @@ public class Main {
     private static Integer port = -1;
     private static InetAddress inetAddress;
     private static Boolean isServer;
+    private static Integer timout;
     private static List<String> argCommands;
 
     public static void main(String[] args) {
         System.out.println("//// JAVA TCP ////");
-        String[] arr = {"--CLIENT", "--IP", "127.0.0.1", "-p", "8090"};
+        String[] arr = {"--Server", "--IP", "127.0.0.1", "-p", "8090", "-t", "5000"};
         boolean argsValid = parseArguments(arr);
 
         if(!argsValid) {
@@ -38,6 +39,7 @@ public class Main {
         boolean inetValid = false;
         boolean portValid = false;
         boolean isServerValid = false;
+        boolean timeoutValid = false;
 
         for(int i = 0; i < arguments.length; i++) {
             String argument = arguments[i].toLowerCase();
@@ -83,6 +85,14 @@ public class Main {
                     isServer = false;
                     break;
                 }
+                case "-t": {
+                    timeoutValid = parseTimout(arguments, i);
+                    break;
+                }
+                case "--timeout": {
+                    timeoutValid = parseTimout(arguments, i);
+                    break;
+                }
             }
         }
 
@@ -108,6 +118,18 @@ public class Main {
         }
         try {
             port = Integer.parseInt(arguments[i + 1]);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
+
+    private static boolean parseTimout(String[] arguments, int i) {
+        if(i == arguments.length - 1) {
+            return false;
+        }
+        try {
+            timout = Integer.parseInt(arguments[i + 1]);
             return true;
         } catch (NumberFormatException e) {
             return false;
