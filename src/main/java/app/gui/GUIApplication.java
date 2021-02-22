@@ -9,7 +9,7 @@ import javafx.stage.Stage;
 public class GUIApplication extends Application {
     @Override
     public void start(Stage stage) throws Exception {
-        /*Parent root = FXMLLoader.load(getClass().getResource("../../../resources/Main.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("../../../resources/Main.fxml"));
 
         Scene scene = new Scene(root);
         stage.setResizable(true);
@@ -19,7 +19,7 @@ public class GUIApplication extends Application {
         stage.setWidth(600);
 
         stage.setScene(scene);
-        stage.show();*/
+        stage.show();
     }
 
 }
